@@ -19,6 +19,15 @@
 
 ## PERCOBAAN 1A
 
+### Deskripsi Singkat
+Percobaan ini merupakan pengembangan dari Percobaan 1A dasar, di mana ESP32 membaca data suhu dan kelembaban dari sensor DHT22 melalui pustaka DHT.h. Pada modifikasi ini, program melakukan 5 kali pembacaan sensor dalam satu siklus, kemudian menghitung nilai rata-rata suhu dan kelembaban dari data yang valid saja sebelum ditampilkan ke Serial Monitor. Tujuannya adalah memperoleh data yang lebih stabil dan mengurangi pengaruh noise/fluktuasi pembacaan tunggal.
+
+### Library/Dependencies
+| Library | Fungsi |
+|---|---|
+| `DHT.h` (DHT sensor library by Adafruit) | Menyediakan fungsi komunikasi dengan sensor DHT22 (`begin()`, `readTemperature()`, `readHumidity()`) |
+| `Adafruit Unified Sensor` | Dependency wajib agar `DHT.h` dapat berjalan di Arduino IDE |
+
 ### Gambar Rangkaian
 <img width="293" height="276" alt="Scemaric Rangkaian 1A" src="https://github.com/user-attachments/assets/e875206d-24e0-4638-b929-906af3d5083b" />
 
@@ -63,17 +72,25 @@ void loop() {
 }
 ```
 
-- Header #include <DHT.h> mengimpor pustaka DHT sensor library agar ESP32 dapat berkomunikasi dengan sensor DHT22.
-- DHTPIN dan DHTTYPE mendefinisikan pin data (GPIO 4) dan tipe sensor (DHT22) yang digunakan, lalu objek dht dibuat dari kelas DHT.
-- Pada setup(), Serial.begin(115200) mengaktifkan komunikasi serial untuk menampilkan data ke komputer, dan dht.begin() menginisialisasi sensor agar siap dibaca.
-- Pada loop(), dht.readHumidity() dan dht.readTemperature() membaca nilai kelembaban dan suhu terkini dari sensor.
-- Fungsi isnan() memeriksa apakah hasil pembacaan valid; jika salah satu nilai NaN, program mencetak pesan kegagalan alih-alih menampilkan data yang tidak valid.
-- Jika pembacaan berhasil, suhu dan kelembaban dicetak ke Serial Monitor dengan format yang mudah dibaca (°C dan %).
-- delay(2000) memberi jeda 2 detik sebelum pembacaan berikutnya, mengikuti batas kecepatan sampling sensor DHT22.
+### Penjelasan Fungsi
+| Fungsi | Penjelasan |
+|---|---|
+| `dht.begin()` | Menginisialisasi komunikasi antara ESP32 dan sensor DHT22 agar siap dibaca. |
+| `dht.readTemperature()` | Membaca nilai suhu terkini dari sensor dalam satuan derajat Celsius (°C). |
+| `dht.readHumidity()` | Membaca nilai kelembaban relatif terkini dari sensor dalam satuan persen (%). |
+| `isnan(nilai)` | Memeriksa apakah nilai float hasil pembacaan bukan bilangan valid (Not a Number), digunakan untuk validasi data sebelum diakumulasikan. |
+| `Serial.begin(115200)` | Mengaktifkan komunikasi serial antara ESP32 dan komputer pada baud rate 115200 agar data dapat ditampilkan di Serial Monitor. |
+
+### Penjelasan Percabangan / Conditional
+
+- **`if (!isnan(suhu) && !isnan(kelembaban))`** — memastikan kedua nilai (suhu dan kelembaban) valid sebelum ditambahkan ke akumulator `totalSuhu`/`totalKelembaban`. Jika salah satu bernilai NaN, data pada iterasi tersebut **dilewati** dan tidak ikut memengaruhi hasil rata-rata, sehingga akurasi hasil akhir tetap terjaga.
+- **`if (sampleValid == 0) { ... } else { ... }`** — cabang ini menentukan apakah program dapat menghitung rata-rata atau tidak. Jika seluruh 5 pembacaan gagal (`sampleValid == 0`), program menampilkan pesan error alih-alih melakukan pembagian dengan nol (yang akan menghasilkan nilai tidak terdefinisi). Jika ada minimal satu pembacaan valid, rata-rata dihitung dari jumlah sampel yang benar-benar valid, bukan dari `JUMLAH_SAMPLE` tetap.
 
 ### Hasil Pengamatan
 
 Program berhasil dikompilasi dan diunggah ke ESP32 tanpa error. Serial Monitor menampilkan pembacaan suhu dan kelembaban ruangan setiap 2 detik dengan nilai yang stabil dan sesuai kondisi lingkungan sekitar sensor (contoh: suhu berkisar 27-29°C, kelembaban 60-70%, disesuaikan dengan kondisi ruang praktikum saat pengambilan data). Ketika kabel data DHT22 dilepas sementara, Serial Monitor menampilkan pesan "Gagal membaca data dari sensor DHT22!" sesuai spesifikasi yang diharapkan.
+
+---
 
 ## Jawaban Pertanyaan Praktikum 1A
 
@@ -155,6 +172,15 @@ void loop() {
 
 ## PERCOBAAN 2A
 
+### Deskripsi Singkat
+Percobaan ini merupakan pengembangan dari Percobaan 2A dasar, di mana ESP32 mengendalikan aktuator (relay/LED) berdasarkan data suhu dari sensor DHT22. Pada percobaan dasar, kendali hanya menggunakan satu ambang batas (threshold tunggal), yang rawan menyebabkan *chattering* (aktuator berpindah ON/OFF berulang-ulang saat suhu berada tepat di sekitar nilai threshold). Modifikasi ini menerapkan histerisis (dua ambang batas): aktuator menyala saat suhu melebihi 30°C, dan baru mati saat suhu turun di bawah 28°C, sehingga tercipta rentang *dead band* yang membuat perpindahan status lebih stabil.
+
+### Library / Dependencies
+| Library | Fungsi |
+|---|---|
+| `DHT.h` (DHT sensor library by Adafruit) | Menyediakan fungsi komunikasi dengan sensor DHT22 |
+| `Adafruit Unified Sensor` | Dependency wajib agar `DHT.h` dapat berjalan di Arduino IDE |
+
 ### Gambar rangkaian
 <img width="302" height="251" alt="Scematic Rangkaian 2A" src="https://github.com/user-attachments/assets/5d2b8c9a-9698-4f5b-8ba9-dacce8b4b264" />
 
@@ -205,16 +231,25 @@ void loop() {
 }
 ```
 
-- RELAYPIN (GPIO 26) didefinisikan sebagai pin keluaran digital yang mengendalikan relay/LED sebagai simulasi aktuator.
-- suhuThreshold = 30.0 adalah nilai ambang batas suhu (°C) yang menjadi acuan pengambilan keputusan kendali.
-- Pada setup(), pinMode(RELAYPIN, OUTPUT) mengatur pin sebagai keluaran, dan digitalWrite(RELAYPIN, LOW) memastikan aktuator dalam keadaan mati saat sistem baru menyala.
-- Pada loop(), suhu dibaca dari DHT22; jika hasil valid, program membandingkan suhu terhadap suhuThreshold.
-- Jika suhu > suhuThreshold, digitalWrite(RELAYPIN, HIGH) mengaktifkan aktuator (status ON); jika tidak, digitalWrite(RELAYPIN, LOW) mematikannya (status OFF).
-- Status suhu dan kondisi aktuator (ON/OFF) ditampilkan bersamaan pada Serial Monitor sehingga hubungan sebab-akibat antara data sensor dan aksi aktuator dapat diamati secara langsung.
+### Penjelasan Fungsi
+| Fungsi | Penjelasan |
+|---|---|
+| `dht.begin()` | Menginisialisasi komunikasi antara ESP32 dan sensor DHT22. |
+| `dht.readTemperature()` | Membaca nilai suhu terkini dari sensor dalam satuan derajat Celsius (°C). |
+| `isnan(suhu)` | Memeriksa apakah nilai suhu hasil pembacaan valid atau tidak. |
+| `pinMode(RELAYPIN, OUTPUT)` | Mengatur pin GPIO 26 sebagai pin keluaran digital untuk mengendalikan relay/LED. |
+| `digitalWrite(RELAYPIN, HIGH/LOW)` | Mengirim sinyal digital ke pin relay: `HIGH` mengaktifkan aktuator, `LOW` mematikannya. |
+
+### Penjelasan Percabangan / Conditional
+- **`if (isnan(suhu)) { ... } else { ... }`** — memastikan proses kendali aktuator hanya dijalankan jika data suhu valid. Jika sensor gagal dibaca, program hanya menampilkan pesan error tanpa mengubah status aktuator, mencegah keputusan kendali diambil dari data yang salah.
+- **`if (!statusAktuator && suhu > ON_THRESHOLD)`** — aktuator **hanya dinyalakan** jika dua syarat terpenuhi bersamaan: statusnya sebelumnya OFF **dan** suhu sudah melewati batas atas (30°C). Ini mencegah perintah `digitalWrite(HIGH)` diulang-ulang secara tidak perlu saat aktuator sudah menyala.
+- **`else if (statusAktuator && suhu < OFF_THRESHOLD)`** — aktuator **hanya dimatikan** jika sebelumnya ON **dan** suhu sudah turun di bawah batas bawah (28°C).
+- **Kondisi implisit di antara 28°C–30°C** — karena tidak ada cabang `if`/`else if` yang terpenuhi pada rentang ini, nilai `statusAktuator` **dipertahankan** apa adanya. Inilah mekanisme histerisis/*dead band* yang mencegah *chattering* saat suhu berfluktuasi kecil di sekitar titik ambang batas tunggal.
 
 ### Hasil Pengamatan
-
 Pada kondisi suhu ruangan normal (di bawah 30°C), Serial Monitor menampilkan status "Aktuator: OFF". Ketika sensor DHT22 didekatkan pada sumber panas (jari tangan) hingga suhu terbaca melebihi 30°C, LED indikator menyala dan Serial Monitor menampilkan status "Aktuator: ON". Setelah sumber panas dijauhkan dan suhu kembali turun di bawah 30°C, aktuator kembali OFF. Pola perubahan status konsisten mengikuti kondisi suhu tanpa error kompilasi maupun error pembacaan, sesuai spesifikasi yang diharapkan.
+
+---
 
 ## Jawaban Pertanyaan Praktikum 2A
 
@@ -286,6 +321,7 @@ void loop() {
 - Ketika suhu berada di antara 28°C dan 30°C, tidak ada kondisi yang terpenuhi sehingga statusAktuator dipertahankan (inilah efek histerisis/dead band yang mencegah chattering).
 - digitalWrite(RELAYPIN, statusAktuator ? HIGH : LOW): menuliskan status akhir ke pin relay berdasarkan variabel statusAktuator yang sudah diperbarui.
 
+---
 
 ## Pertanyaan Analisis
 
@@ -306,3 +342,10 @@ Sensor dibaca (readTemperature/readHumidity) → data divalidasi dengan isnan() 
 **4) Bagaimana kombinasi antara akuisisi data sensor dan kendali aktuator dapat digunakan untuk membangun sistem IoT yang responsif terhadap perubahan kondisi lingkungan, misalnya pada sistem smart farming atau smart home?**
 
 Sensor mendeteksi kondisi lingkungan secara real-time, lalu aktuator otomatis bereaksi berdasarkan threshold tanpa perlu campur tangan manusia. Contoh: pompa air menyala otomatis saat kelembaban tanah rendah (smart farming), atau kipas/AC menyala saat suhu ruangan melebihi batas nyaman (smart home). Penggunaan histerisis mencegah aktuator berpindah status terlalu sering, sehingga sistem lebih stabil dan efisien.
+
+---
+
+## Foto Proses Praktikum
+<img width="3024" height="4032" alt="Percobaan 1A(1)" src="https://github.com/user-attachments/assets/17fc5941-4462-433f-9e73-042470fcef4b" />
+<img width="3024" height="4032" alt="Percobaan 1A(2)" src="https://github.com/user-attachments/assets/f65315e9-78af-4984-b2e6-7c2af6bf3192" />
+<img width="3024" height="4032" alt="Percobaan 1A(2)" src="https://github.com/user-attachments/assets/54d08216-51f8-4f5d-a063-9fc76dd1bfdb" />
