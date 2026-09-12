@@ -453,7 +453,7 @@ lihat kode dan penjelasan lengkap pada bagian [Percobaan 2B (Modifikasi) — Mod
 - **2B**: ESP8266 berhasil membuat Access Point "ESP32_AccessPoint" dengan IP default `192.168.4.1`, dan dapat memonitor jumlah client yang terhubung.
 
 **2. Bagaimana pengaruh kekuatan sinyal (RSSI) terhadap kestabilan koneksi WiFi pada perangkat IoT?**
-RSSI -45 dBm menandakan sinyal sangat baik dan koneksi stabil. Semakin rendah nilai RSSI (semakin mendekati -90 dBm), semakin lemah sinyalnya, sehingga koneksi menjadi tidak stabil dan lebih sering terputus — hal ini penting diperhatikan pada perangkat IoT yang butuh koneksi kontinu untuk mengirim data sensor secara real-time.
+RSSI -45 dBm menandakan sinyal sangat baik dan koneksi stabil. Semakin rendah nilai RSSI (semakin mendekati -90 dBm), semakin lemah sinyalnya, sehingga koneksi menjadi tidak stabil dan lebih sering terputus. Hal ini penting diperhatikan pada perangkat IoT yang butuh koneksi kontinu untuk mengirim data sensor secara real-time.
 
 **3. Bagaimana cara kerja ESP32 dalam membedakan peran sebagai klien (Station) dan sebagai penyedia jaringan (Access Point)?**
 ESP membedakan peran melalui fungsi `WiFi.mode()` dengan parameter `WIFI_STA`, `WIFI_AP`, atau `WIFI_AP_STA`, dan menggunakan antarmuka jaringan (network interface) yang terpisah secara internal untuk masing-masing peran, sehingga keduanya (pada mode AP+STA) dapat berjalan bersamaan tanpa saling mengganggu.
