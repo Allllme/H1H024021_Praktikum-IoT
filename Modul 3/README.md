@@ -260,7 +260,7 @@ Pada percobaan ini, HTTP POST membawa header yang jauh lebih besar (terlihat pad
 
 **4. Bagaimana peran format JSON dalam mendukung interoperabilitas data antara perangkat IoT dan berbagai platform/aplikasi yang berbeda?**
 
-JSON adalah format berbasis teks yang independen terhadap bahasa pemrograman maupun platform, dan dapat di-parse dengan mudah oleh hampir semua bahasa (C++, Python, JavaScript, dll.) maupun framework. Hal ini membuat data yang dikirim dari mikrokontroler dapat dengan mudah dikonsumsi oleh berbagai aplikasi lain — dashboard web, aplikasi mobile, database — tanpa memerlukan format konversi khusus, sehingga sangat mendukung interoperabilitas antar perangkat dan platform pada sistem IoT.
+JSON adalah format berbasis teks yang independen terhadap bahasa pemrograman maupun platform, dan dapat di-parse dengan mudah oleh hampir semua bahasa (C++, Python, JavaScript, dll.) maupun framework. Hal ini membuat data yang dikirim dari mikrokontroler dapat dengan mudah dikonsumsi oleh berbagai aplikasi lainn dashboard web, aplikasi mobile, database tanpa memerlukan format konversi khusus, sehingga sangat mendukung interoperabilitas antar perangkat dan platform pada sistem IoT.
 
 ---
 
