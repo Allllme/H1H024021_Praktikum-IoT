@@ -118,7 +118,9 @@ yang diminta. Ini kode standar untuk request sukses.
 Contoh kode lain: 
 
 • 404 (Not Found): Resource/endpoint tidak ditemukan di server. 
+
 • 500 (Internal Server Error): Kesalahan internal pada server. 
+
 • 400 (Bad Request): Request klien tidak valid.
 
 **4. Modifikasi program agar ESP32 dapat mengirimkan data tambahan berupa waktu (dalam milidetik sejak dinyalakan menggunakan millis()) ke dalam JSON yang dikirim, dan berikan penjelasan di setiap baris kode yang ditambahkan dalam bentuk README.md**
@@ -244,15 +246,9 @@ Dipanggil pada setiap iterasi `loop()` untuk menjaga koneksi MQTT tetap hidup (m
 
 **1. Uraikan hasil tugas pada praktikum yang telah dilakukan pada setiap percobaan!**
 
-*Percobaan 3A (HTTP)*: NodeMCU 1.0 (ESP-12E) berhasil terhubung ke WiFi "rakjel" dan 
-mengirim data JSON ke httpbin.org/post via HTTPS. Server merespons kode 200 dan 
-mengembalikan (echo) data JSON yang dikirim di bagian "json". Serial Monitor menampilkan 
-proses koneksi, data terkirim, kode response, dan isi response body. Tidak ada error. Program 
-berulang tiap 10 detik. 
-*Percobaan 3B (MQTT)*: NodeMCU berhasil terhubung ke broker.hivemq.com. Data JSON 
-dipublikasikan ke topic unsoed/tk245004/kelompokAnda/sensor setiap 5 detik. Data berhasil 
-diverifikasi via MQTT Explorer yang subscribe ke topic sama. Serial Monitor menampilkan 
-status koneksi dan setiap data yang dipublikasikan. Tidak ada error.
+*Percobaan 3A (HTTP)*: NodeMCU 1.0 (ESP-12E) berhasil terhubung ke WiFi "rakjel" dan mengirim data JSON ke httpbin.org/post via HTTPS. Server merespons kode 200 dan mengembalikan (echo) data JSON yang dikirim di bagian "json". Serial Monitor menampilkan proses koneksi, data terkirim, kode response, dan isi response body. Tidak ada error. Program berulang tiap 10 detik. 
+
+*Percobaan 3B (MQTT)*: NodeMCU berhasil terhubung ke broker.hivemq.com. Data JSON  dipublikasikan ke topic unsoed/tk245004/kelompokAnda/sensor setiap 5 detik. Data berhasil diverifikasi via MQTT Explorer yang subscribe ke topic sama. Serial Monitor menampilkan status koneksi dan setiap data yang dipublikasikan. Tidak ada error.
 
 **2. Bandingkan besar overhead data dan pola komunikasi antara protokol HTTP dan MQTT berdasarkan hasil percobaan yang telah dilakukan!**
 
