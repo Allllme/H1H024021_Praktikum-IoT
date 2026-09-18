@@ -256,7 +256,7 @@ Pada percobaan ini, HTTP POST membawa header yang jauh lebih besar (terlihat pad
 
 **3. Untuk skenario pengiriman data sensor secara terus-menerus setiap beberapa detik dalam jangka waktu lama, protokol manakah (HTTP atau MQTT) yang lebih sesuai digunakan? Jelaskan alasannya!**
 
-*MQTT* lebih sesuai, karena koneksinya bersifat persistent (tidak perlu membangun ulang koneksi setiap pengiriman), overhead per pesan kecil sehingga hemat daya dan bandwidth, serta mendukung banyak subscriber menerima data yang sama secara bersamaan — cocok untuk pengiriman data sensor setiap beberapa detik secara terus-menerus.
+*MQTT* lebih sesuai, karena koneksinya bersifat persistent (tidak perlu membangun ulang koneksi setiap pengiriman), overhead per pesan kecil sehingga hemat daya dan bandwidth, serta mendukung banyak subscriber menerima data yang sama secara bersamaan, cocok untuk pengiriman data sensor setiap beberapa detik secara terus-menerus.
 
 **4. Bagaimana peran format JSON dalam mendukung interoperabilitas data antara perangkat IoT dan berbagai platform/aplikasi yang berbeda?**
 
