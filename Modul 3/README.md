@@ -116,6 +116,7 @@ Perintah ini menambahkan header HTTP yang memberi tahu server bahwa **body reque
 HTTP 200 (OK) berarti request berhasil diproses server dan server mengembalikan response 
 yang diminta. Ini kode standar untuk request sukses. 
 Contoh kode lain: 
+
 • 404 (Not Found): Resource/endpoint tidak ditemukan di server. 
 • 500 (Internal Server Error): Kesalahan internal pada server. 
 • 400 (Bad Request): Request klien tidak valid.
