@@ -78,8 +78,6 @@ ESP8266 melakukan *subscribe* pada topic perintah. Perintah dikirim dari MQTT Ex
 <img width="960" height="1280" alt="Rangkaian Percobaan 4A" src="https://github.com/user-attachments/assets/a73dd3c1-b598-420a-a08a-481f24057350" />
 
 
-*Gambar 1. Rangkaian Percobaan 4A*
-
 ## Kode Program
 
 ```cpp
@@ -216,15 +214,12 @@ Program diunggah ke board NodeMCU 1.0 (ESP-12E Module) pada port COM3 dengan bau
 <img width="1600" height="302" alt="Serial Monitor 4A" src="https://github.com/user-attachments/assets/aed7ef7f-4b7f-461a-95f9-0e45c63a313b" />
 
 
-*Gambar 2. Serial Monitor Percobaan 4A (koneksi WiFi, broker, dan subscribe)*
-
 ## Jawaban Pertanyaan Praktikum 4A
 
 ### 1. Flowchart proses penerimaan dan pemrosesan pesan pada callback
 
 <img width="1063" height="1487" alt="flowchart_callback" src="https://github.com/user-attachments/assets/f61f477b-f27c-41d6-9f6e-db34a3144e46" />
 
-*Gambar 3. Diagram alur fungsi callback pada Percobaan 4A*
 
 ### 2. Apa yang terjadi jika pesan bukan JSON yang valid?
 
@@ -279,7 +274,7 @@ analogWrite(ledPin, 0);     // pastikan LED mati saat awal
 
 Program 4A dikembangkan agar ESP8266 juga mempublikasikan data suhu dari DHT11 setiap 5 detik ke topic data, sambil tetap menerima perintah LED dari topic perintah. Pengaturan waktu publish memakai `millis()` (non-blocking) sehingga `client.loop()` terus berjalan tanpa terhambat `delay()`.
 
-## Skematik Rangkaian
+## Rangkaian
 
 | Komponen | Kaki Komponen | Pin ESP8266 |
 |---|---|---|
@@ -291,7 +286,6 @@ Program 4A dikembangkan agar ESP8266 juga mempublikasikan data suhu dari DHT11 s
 
 <img width="960" height="1280" alt="Rangkaian Percobaan 4B" src="https://github.com/user-attachments/assets/f0cd5d16-315c-4586-adf1-a28d1e9011de" />
 
-*Gambar 4. Rangkaian Percobaan 4B*
 
 ## Kode Program
 
@@ -432,7 +426,6 @@ Data terkirim: {"suhu":26.2}
 
 <img width="493" height="413" alt="Serial Monitor 4B" src="https://github.com/user-attachments/assets/c863a5c8-427a-477a-8135-433370874342" />
 
-*Gambar 5. Serial Monitor Percobaan 4B (data suhu terkirim berkala)*
 
 ## Jawaban Pertanyaan Praktikum 4B
 
@@ -536,5 +529,5 @@ Manfaat dibanding sistem satu arah:
 | Percobaan 4A | Percobaan 4B |
 |---|---|
 | <img width="960" height="1280" alt="Rangkaian Percobaan 4A" src="https://github.com/user-attachments/assets/1fe5d0f9-f8b8-463d-9207-f78b754a899e" />
- | <img width="493" height="413" alt="Serial Monitor 4B" src="https://github.com/user-attachments/assets/cec8c4f3-be80-41b2-a3c7-90716a2881c6" />
- |
+ ||<img width="960" height="1280" alt="Rangkaian Percobaan 4B" src="https://github.com/user-attachments/assets/ca9fcc29-a2fa-4fa0-b582-45f74d4cdca3" />|
+
