@@ -513,12 +513,16 @@ Sistem satu arah hanya dapat memantau, sedangkan sistem dua arah dapat memantau 
 
 ### 4. Contoh penerapan komunikasi dua arah pada IoT nyata
 
-**Smart farming.** Sensor kelembapan tanah dan suhu mempublikasikan data ke topic data, sedangkan pompa irigasi menerima perintah ON/OFF dari aplikasi melalui topic perintah dan mengirim kembali status pompa.
+Contoh penerapan: pemantauan rantai dingin (cold chain) pada gudang atau distribusi barang.
+Pada distribusi produk sensitif suhu (makanan beku, obat, vaksin), sensor suhu di gudang atau kontainer publish datanya ke broker, mirip dengan DHT11 di Percobaan 4B. Sistem manajemen gudang menerima data itu secara real-time. Jika suhu melewati batas, sistem mengirim perintah lewat topic perintah ke perangkat di lokasi, misalnya untuk menyalakan pendingin tambahan atau alarm, seperti LED dan buzzer pada percobaan ini. Perangkat lalu mengirim balik status aktuator.
 
-Manfaat dibanding sistem satu arah:
-- Petani tidak hanya melihat kondisi lahan tetapi dapat langsung menyiram dari jarak jauh.
-- Penyiraman dapat diotomatisasi berdasarkan data sensor.
-- Status pompa dapat dikonfirmasi sehingga penggunaan air lebih efisien.
+**Manfaat dibanding sistem satu arah:**
+
+1. Sistem satu arah hanya mencatat suhu, sehingga kerusakan barang baru diketahui setelah terjadi. Sistem dua arah bisa langsung mengambil tindakan koreksi dari jarak jauh.
+
+2. Visibilitas kondisi barang di sepanjang rantai pasok menjadi real-time, sehingga risiko barang rusak atau expired dan kerugian stok berkurang.
+
+3. Tindakan koreksi bisa diotomatisasi dan statusnya dikonfirmasi, jadi tidak bergantung pada petugas yang harus datang ke lokasi.
 
 ---
 
