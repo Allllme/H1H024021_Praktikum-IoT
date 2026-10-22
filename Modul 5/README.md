@@ -504,7 +504,7 @@ Cuplikan 20 data pertama yang diterima Python:
 
 <img width="1306" height="775" alt="Output vscode 5B (1)" src="https://github.com/user-attachments/assets/82af500e-c48d-4db6-aed2-5fe827fc79db" />
 
-![Grafik Suhu](images/grafik_suhu.png)
+<img width="1280" height="696" alt="Grafik Percobaan" src="https://github.com/user-attachments/assets/2504a1aa-9a46-4913-8177-f26a12cab65b" />
 
 **Analisis:** Status anomali ditentukan dengan aturan \|z\| > 2. Pada data ke-18 terjadi lonjakan suhu ekstrem menjadi 38,03 °C dengan z-score **4,87**, sehingga terdeteksi sebagai anomali (lonjakan +8 °C dari fungsi mock). Seluruh data berhasil tersimpan ke `data_suhu.csv`. Seluruh data pengamatan ini berasal dari fungsi mock sebagai pengganti sensor fisik DHT22.
 
