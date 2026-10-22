@@ -151,7 +151,7 @@ void loop() {
 | 4 | 8 | 27,37 | 27,70 | 27,32 | 38,32 |
 | 5 | 10 | 27,21 | 27,51 | 27,21 | 38,32 |
 
-![Serial Monitor 5A](images/serial-5a.png)
+<img width="1600" height="530" alt="Serial Monitor 5A" src="https://github.com/user-attachments/assets/afb358d3-718e-4863-aa12-fef28f63fb57" />
 
 **Analisis:** *Suhu mentah* adalah keluaran fungsi mock sebelum difilter. *Moving average* dihitung dari maksimal lima pembacaan terakhir sehingga nilainya lebih halus dan tidak langsung mengikuti fluktuasi noise. *Min/Max* adalah nilai terendah dan tertinggi sejak program berjalan; suhu maksimum sempat mencapai **38,32 °C** akibat lonjakan anomali simulasi.
 
@@ -500,8 +500,10 @@ Cuplikan 20 data pertama yang diterima Python:
 | Suhu maksimum | 38,03 °C |
 | Jumlah anomali | 1 |
 
-![Serial Monitor 5B](images/serial-5b.png)
-![Output Python](images/output-python.png)
+<img width="1428" height="822" alt="Serial Monitor 5B (1)" src="https://github.com/user-attachments/assets/2c593ce3-c0b0-4fcc-b618-67a843bf1d54" />
+
+<img width="1306" height="775" alt="Output vscode 5B (1)" src="https://github.com/user-attachments/assets/82af500e-c48d-4db6-aed2-5fe827fc79db" />
+
 ![Grafik Suhu](images/grafik_suhu.png)
 
 **Analisis:** Status anomali ditentukan dengan aturan \|z\| > 2. Pada data ke-18 terjadi lonjakan suhu ekstrem menjadi 38,03 °C dengan z-score **4,87**, sehingga terdeteksi sebagai anomali (lonjakan +8 °C dari fungsi mock). Seluruh data berhasil tersimpan ke `data_suhu.csv`. Seluruh data pengamatan ini berasal dari fungsi mock sebagai pengganti sensor fisik DHT22.
