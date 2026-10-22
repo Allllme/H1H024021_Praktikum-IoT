@@ -5,7 +5,7 @@
 | **Nama Mata Kuliah (Kode)** | Praktikum Internet of Things (TK245005) |
 | **Tahun / Semester** | 2024 / 5 |
 | **Modul** | 5 |
-| **Nama Asisten / NIM** | Athallah Tsany Satriaji |
+| **Nama Asisten** | Athallah Tsany Satriaji |
 | **Nama Praktikan / NIM** | Alma Maida Wirastuti / H1H024021 |
 
 Repository ini berisi dokumentasi dan source code hasil praktikum Modul 5, yang membahas tahapan pengolahan dan analisis data pada sistem IoT: **edge processing** (moving average & statistik min/max langsung di ESP8266) dan **server processing** (pengambilan data via MQTT dengan Python, penyimpanan ke CSV, visualisasi, dan deteksi anomali dengan z-score).
