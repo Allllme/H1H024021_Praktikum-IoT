@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt  # Membuat grafik suhu
 # Konfigurasi MQTT yang harus sama dengan Arduino IDE
 BROKER = "broker.hivemq.com"                        # Alamat broker MQTT
 PORT = 1883                                         # Port komunikasi MQTT
-TOPIC = "unsoed/tk245004/kelompok2/data"            # Topic yang dipantau
+TOPIC = "unsoed/tk245004/kelompok6/data"            # Topic yang dipantau
 JUMLAH_SAMPEL = 30                                  # Jumlah data yang akan diterima
 
 data = [] # Menampung data waktu dan suhu yang diterima
