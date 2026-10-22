@@ -4,13 +4,13 @@
 #include <math.h>             // Library matematika untuk fungsi sin()
 
 // Konfigurasi Wi-Fi yang digunakan ESP8266
-const char* ssid = "dips!";           // Nama jaringan Wi-Fi
-const char* password = "12345678";    // Password Wi-Fi
+const char* ssid = "UdinPetot";           // Nama jaringan Wi-Fi
+const char* password = "Admin1234";    // Password Wi-Fi
 
 // Konfigurasi broker dan topic MQTT
 const char* mqttServer = "broker.hivemq.com";               // Alamat broker MQTT
 const int mqttPort = 1883;                                  // Port MQTT tanpa TLS
-const char* topicData = "unsoed/tk245004/kelompok2/data";   // Topic pengiriman data
+const char* topicData = "unsoed/tk245004/kelompok6/data";   // Topic pengiriman data
 
 WiFiClient espClient;                  // Membuat koneksi jaringan untuk ESP8266
 PubSubClient client(espClient);        // Membuat klien MQTT menggunakan koneksi tersebut
