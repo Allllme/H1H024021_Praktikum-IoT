@@ -485,7 +485,7 @@ Cuplikan 20 data pertama yang diterima Python:
 | 15 | 09:07:09 | 28.97 | -0.22 | Tidak | Tersimpan |
 | 16 | 09:07:13 | 29.02 | -0.19 | Tidak | Tersimpan |
 | 17 | 09:07:13 | 29.11 | -0.14 | Tidak | Tersimpan |
-| **18** | **09:07:18** | **38.03** | **4.87** | **Ya** | Tersimpan |
+| 18 | 09:07:18 | 38.03 | 4.87 | Ya | Tersimpan |
 | 19 | 09:07:19 | 29.05 | -0.17 | Tidak | Tersimpan |
 | 20 | 09:07:23 | 29.52 | 0.09 | Tidak | Tersimpan |
 
@@ -506,7 +506,7 @@ Cuplikan 20 data pertama yang diterima Python:
 
 <img width="1280" height="696" alt="Grafik Percobaan" src="https://github.com/user-attachments/assets/2504a1aa-9a46-4913-8177-f26a12cab65b" />
 
-**Analisis:** Status anomali ditentukan dengan aturan \|z\| > 2. Pada data ke-18 terjadi lonjakan suhu ekstrem menjadi 38,03 °C dengan z-score **4,87**, sehingga terdeteksi sebagai anomali (lonjakan +8 °C dari fungsi mock). Seluruh data berhasil tersimpan ke `data_suhu.csv`. Seluruh data pengamatan ini berasal dari fungsi mock sebagai pengganti sensor fisik DHT22.
+**Analisis:** Status anomali ditentukan dengan aturan \|z\| > 2. Pada data ke-18 terjadi lonjakan suhu ekstrem menjadi 38,03 °C dengan z-score 4,87, sehingga terdeteksi sebagai anomali (lonjakan +8 °C dari fungsi mock). Seluruh data berhasil tersimpan ke `data_suhu.csv`. Seluruh data pengamatan ini berasal dari fungsi mock sebagai pengganti sensor fisik DHT22.
 
 ### Jawaban Pertanyaan Praktikum 5B
 
@@ -547,10 +547,10 @@ df.to_csv("data_suhu.csv", index=False)
 
 **Penjelasan baris yang ditambahkan:**
 - `df["suhu_ma"] = df["suhu"].rolling(window=5, min_periods=1).mean()` – membuat kolom moving average jendela 5; `min_periods=1` membuat 4 data awal tetap dihitung dari data yang tersedia.
-- `rata2_m`, `std_m` – rata-rata dan standar deviasi data **mentah**.
+- `rata2_m`, `std_m` – rata-rata dan standar deviasi data mentah.
 - `df["z_mentah"] = ...` – z-score data mentah; bernilai 0 jika std tidak valid/nol untuk menghindari pembagian dengan nol.
 - `df["anomali_mentah"] = ... > 2` – penanda anomali pada data mentah.
-- `rata2_ma`, `std_ma`, `df["z_ma"]`, `df["anomali_ma"]` – langkah yang sama, tetapi pada data **hasil moving average**.
+- `rata2_ma`, `std_ma`, `df["z_ma"]`, `df["anomali_ma"]` – langkah yang sama, tetapi pada data hasil moving average.
 - Dua `print` menampilkan jumlah anomali kedua metode agar dapat dibandingkan.
 - `df.to_csv(...)` – menyimpan semua kolom baru ke CSV.
 
@@ -561,7 +561,7 @@ df.to_csv("data_suhu.csv", index=False)
 | Data mentah | _(isi dari output `Anomali mentah:`)_ |
 | Setelah moving average | _(isi dari output `Anomali setelah MA:`)_ |
 
-> Secara teori, moving average meredam lonjakan sesaat (nilai ekstrem dirata-ratakan dengan 4 data di sekitarnya), sehingga z-score lonjakan menjadi lebih kecil dan jumlah anomali yang terdeteksi cenderung **berkurang** dibanding data mentah. Isi tabel di atas dengan hasil nyata dari program Anda.
+> Secara teori, moving average meredam lonjakan sesaat (nilai ekstrem dirata-ratakan dengan 4 data di sekitarnya), sehingga z-score lonjakan menjadi lebih kecil dan jumlah anomali yang terdeteksi cenderung berkurang dibanding data mentah. Isi tabel di atas dengan hasil nyata dari program Anda.
 
 ---
 
